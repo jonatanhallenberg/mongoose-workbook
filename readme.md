@@ -35,9 +35,11 @@ Ni använder er av följande komponenter:
 
 4. Generera *tsconfig.json*
 
-> ```npx tsc init```
+> ```npx tsc --init```
 
-5. Ändra module till esnext i tsconfig.json så vi kan använda import / export
+5. Ändra i module till ESNext och target till NodeNext i tsconfig.json så vi kan använda import / export
+
+6. Avkommentera moduleResolution="node" så att importerna fungerar korrekt
 
 ## Sätta upp Express.js
 
@@ -48,9 +50,10 @@ Ni använder er av följande komponenter:
 2. Skapa server.ts och lägg in grundkoden för en express-server:
 
 ```ts
-import express, { Request, Response } from 'express';
+import express, { Request, Response, json } from 'express';
 
 const app = express()
+app.use(json());
 const port = 3000
 
 app.get('/', (req: Request, res: Response) => {
@@ -108,8 +111,82 @@ app.use('/animal', animalRouter)
 
 >```npm i mongoose @types/mongoose```
 
-2. Skapa en anslutning till 
+2. Skapa en anslutning till Mongoose i server.ts. Se till att URI:n matchar din databas. Databasnamnet står sist, i exemplet är det *zoo*:
 
+```typescript
+import { connect } from 'mongoose';
+connect('mongodb://localhost:27017/zoo')
+```
+
+## Skapa interface och schema för animal
+
+1. Lägg till en mapp 'db' som innehåller all databas-logik
+2. I db, lägg till en mapp 'models' som innehåller modeller för alla entiteter (collections)
+3. Skapa db/models/animal.ts och lägg in interface, schema och model för animal:
+
+```typescript
+import { Schema, model } from 'mongoose';
+
+export interface AnimalType {
+    type: string,
+    name: string,
+    isMammal: boolean,
+    numberOfLegs: number
+}
+
+const schema = new Schema<AnimalType>({
+    type: { type: String, required: true },
+    name: { type: String, required: true },
+    isMammal: { type: Boolean, required: true },
+    numberOfLegs: { type: Number, required: true },
+})
+
+const AnimalModel = model<AnimalType>('Animal', schema)
+
+export default AnimalModel;
+```
+
+## Skapa en addAnimal-funktion
+
+Nu när vi har modellen är vi redo att skapa funktionen som lägger till ett animal i databasen
+
+1. Skapa db/animal.ts och lägg till en addAnimal-fuktion som använder sig av Animal-modelle vi har skapat
+
+```typescript
+import AnimalModel, { AnimalType } from './models/animal';
+
+export const createAnimal = async (animal: AnimalType) => {
+    const newAnimal = new AnimalModel(animal);
+    await newAnimal.save();
+    return newAnimal;
+}
+```
+
+## Skapa en route for POST /animal
+
+1. I routes/animal.ts lägger vi till en ny route för POST som anropar createAnimal från db/animalCrud.ts och returnerar det skapade djuret:
+
+```typescript
+router.post('/', async (req: Request, res: Response) => {
+    console.log('posting');
+    const createdAnimal = await createAnimal(req.body);
+    res.status(201).json(createdAnimal);
+})
+```
+
+## Testa koden
+Använd en Rest-klient t.ex. Insomnia för att testa post-endpointen
+
+> ```POST /animal```
+
+```json
+{
+	"name": "Bo",
+	"type": "Ko",
+	"isMammal": true,
+	"numberOfLegs": 2
+}
+```
 
 ## Fler endpoints
 
@@ -120,7 +197,7 @@ Nu har vi gått igenom hur man sätter upp alla komponenter och skapar en POST-e
 När du gjort endpoints för alla CRUD-operationer och koden fungerar är det dags för förbättringar och refaktorisering. Här kommer förslag på saker att göra:
 
 - Lägg till validering av input-data. Använd t.ex. express-validator (https://express-validator.github.io/docs/).
-- 
+- Se till att rätt statuskoder returneras beroende på metod och utfall
 
 
 
