@@ -190,7 +190,7 @@ Använd en Rest-klient t.ex. Insomnia för att testa post-endpointen
 
 ## Fler endpoints
 
-Nu har vi gått igenom hur man sätter upp alla komponenter och skapar en POST-endpoint. Nu återstår att skapa endpoints för GET, PUT och POST /animals. Ta hjälp av föreläsningsanteckningarna och Mongoose-dokumentationen för queries (https://mongoosejs.com/docs/queries.html).
+Nu har vi gått igenom hur man sätter upp alla komponenter och skapar en POST-endpoint. Nu återstår att skapa endpoints för GET, PUT och DELETE /animals. Ta hjälp av föreläsningsanteckningarna och Mongoose-dokumentationen för queries (https://mongoosejs.com/docs/queries.html).
 
 ## Refaktorering - förslag
 
