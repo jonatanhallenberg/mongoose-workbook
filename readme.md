@@ -197,8 +197,4 @@ Nu har vi gått igenom hur man sätter upp alla komponenter och skapar en POST-e
 När du gjort endpoints för alla CRUD-operationer och koden fungerar är det dags för förbättringar och refaktorisering. Här kommer förslag på saker att göra:
 
 - Lägg till validering av input-data. Använd t.ex. express-validator (https://express-validator.github.io/docs/).
-- Se till att rätt statuskoder returneras beroende på metod och utfall
-
-
-
-
+- Se till att rätt statuskoder returneras beroende på metod och utfall.
