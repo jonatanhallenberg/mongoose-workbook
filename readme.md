@@ -135,6 +135,7 @@ Använd en Rest-klient t.ex. Insomnia för att testa post-endpointen
 
 Nu har vi gått igenom hur man sätter upp alla komponenter och skapar en POST-endpoint. Nu återstår att skapa ytterligare endpoints:
 
+>```GET /animal/:id```
 >```GET /animal```
 >```PUT /animal```
 >```DELETE /animal```
