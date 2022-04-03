@@ -150,7 +150,7 @@ export default AnimalModel;
 
 Nu när vi har modellen är vi redo att skapa funktionen som lägger till ett animal i databasen
 
-1. Skapa db/animal.ts och lägg till en addAnimal-fuktion som använder sig av Animal-modelle vi har skapat
+1. Skapa db/animalCrud.ts och lägg till en createAnimal-fuktion som använder sig av Animal-modellen vi har skapat
 
 ```typescript
 import AnimalModel, { AnimalType } from './models/animal';
@@ -168,7 +168,6 @@ export const createAnimal = async (animal: AnimalType) => {
 
 ```typescript
 router.post('/', async (req: Request, res: Response) => {
-    console.log('posting');
     const createdAnimal = await createAnimal(req.body);
     res.status(201).json(createdAnimal);
 })
@@ -190,7 +189,13 @@ Använd en Rest-klient t.ex. Insomnia för att testa post-endpointen
 
 ## Fler endpoints
 
-Nu har vi gått igenom hur man sätter upp alla komponenter och skapar en POST-endpoint. Nu återstår att skapa endpoints för GET, PUT och DELETE /animals. Ta hjälp av föreläsningsanteckningarna och Mongoose-dokumentationen för queries (https://mongoosejs.com/docs/queries.html).
+Nu har vi gått igenom hur man sätter upp alla komponenter och skapar en POST-endpoint. Nu återstår att skapa ytterligare endpoints:
+
+>```GET /animal```
+>```PUT /animal```
+>```DELETE /animal```
+ 
+Ta hjälp av föreläsningsanteckningarna och Mongoose-dokumentationen för queries (https://mongoosejs.com/docs/queries.html).
 
 ## Refaktorering - förslag
 
