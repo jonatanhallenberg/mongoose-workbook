@@ -185,7 +185,8 @@ Ta hjälp av föreläsningsanteckningarna och Mongoose-dokumentationen för quer
 
 ## Refaktorering - förslag
 
-När du gjort endpoints för alla CRUD-operationer och koden fungerar är det dags för förbättringar och refaktorisering. Här kommer förslag på saker att göra:
+När ni gjort endpoints för alla CRUD-operationer och koden fungerar är det dags för förbättringar och refaktorisering. Här kommer förslag på saker att göra:
 
+- Bryt ut konfigurerbara värden (t.ex. Connection URI) i en .env-fil och läs in med hjälp av dotenv (https://www.npmjs.com/package/dotenv)
 - Lägg till validering av input-data. Använd t.ex. express-validator (https://express-validator.github.io/docs/).
 - Se till att rätt statuskoder returneras beroende på metod och utfall.
