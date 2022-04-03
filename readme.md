@@ -49,7 +49,7 @@ Ni använder er av följande komponenter:
 
 2. Skapa server.ts och lägg in grundkoden för en express-server:
 
-![Code](/code1.png?raw=true "Code")
+![Code](/img/code1.png?raw=true "Code")
 
 3. Lägg till start-script i package.json
 
