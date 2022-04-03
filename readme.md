@@ -49,21 +49,7 @@ Ni använder er av följande komponenter:
 
 2. Skapa server.ts och lägg in grundkoden för en express-server:
 
-```ts
-import express, { Request, Response, json } from 'express';
-
-const app = express()
-app.use(json());
-const port = 3000
-
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello World!')
-})
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
-```
+![Code](/code1.png?raw=true "Code")
 
 3. Lägg till start-script i package.json
 
