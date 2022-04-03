@@ -67,17 +67,7 @@ Vi ska nu lägga till CRUD-operationer för entiteten *animal*. För att kunna s
 
 1. Skapa routes/animal.ts
 
-```typescript
-import express, { Request, Response } from 'express';
-
-const router = express.Router();
-
-router.get('/', (req: Request, res: Response) => {
-    res.send('GET animals');
-})
-
-export default router;
-```
+![Code](/img/code2.png?raw=true "Code")
 
 2. Importera animal-routern i server.ts och registrera i express-appen
 
@@ -110,27 +100,7 @@ connect('mongodb://localhost:27017/zoo')
 2. I db, lägg till en mapp 'models' som innehåller modeller för alla entiteter (collections)
 3. Skapa db/models/animal.ts och lägg in interface, schema och model för animal:
 
-```typescript
-import { Schema, model } from 'mongoose';
-
-export interface AnimalType {
-    type: string,
-    name: string,
-    isMammal: boolean,
-    numberOfLegs: number
-}
-
-const schema = new Schema<AnimalType>({
-    type: { type: String, required: true },
-    name: { type: String, required: true },
-    isMammal: { type: Boolean, required: true },
-    numberOfLegs: { type: Number, required: true },
-})
-
-const AnimalModel = model<AnimalType>('Animal', schema)
-
-export default AnimalModel;
-```
+![Code](/img/code3.png?raw=true "Code")
 
 ## Skapa en addAnimal-funktion
 
@@ -138,26 +108,14 @@ Nu när vi har modellen är vi redo att skapa funktionen som lägger till ett an
 
 1. Skapa db/animalCrud.ts och lägg till en createAnimal-fuktion som använder sig av Animal-modellen vi har skapat
 
-```typescript
-import AnimalModel, { AnimalType } from './models/animal';
-
-export const createAnimal = async (animal: AnimalType) => {
-    const newAnimal = new AnimalModel(animal);
-    await newAnimal.save();
-    return newAnimal;
-}
-```
+![Code](/img/code4.png?raw=true "Code")
 
 ## Skapa en route for POST /animal
 
 1. I routes/animal.ts lägger vi till en ny route för POST som anropar createAnimal från db/animalCrud.ts och returnerar det skapade djuret:
 
-```typescript
-router.post('/', async (req: Request, res: Response) => {
-    const createdAnimal = await createAnimal(req.body);
-    res.status(201).json(createdAnimal);
-})
-```
+![Code](/img/code5.png?raw=true "Code")
+
 
 ## Testa koden
 Använd en Rest-klient t.ex. Insomnia för att testa post-endpointen
