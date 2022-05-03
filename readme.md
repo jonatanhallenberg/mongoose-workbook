@@ -37,10 +37,6 @@ Ni använder er av följande komponenter:
 
 > ```npx tsc --init```
 
-5. Ändra i module till ESNext och target till NodeNext i tsconfig.json så vi kan använda import / export
-
-6. Avkommentera moduleResolution="node" så att importerna fungerar korrekt
-
 ## Sätta upp Express.js
 
 1. Installera express med typings
